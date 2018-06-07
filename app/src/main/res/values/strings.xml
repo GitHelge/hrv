@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Breathing Rhythm</string>
+    <string name="duration_mm_ss">Duration [mm:ss]:</string>
+    <string name="starting_in">Starting in %1$s</string>
+    <string name="ended">Ended</string>
+    <string name="stop_bp_and_go_back">Stop breathing rhythm to go back to menu?</string>
+    <string name="back">Back</string>
+    <string name="shows_the_breathing_indicator_animation">Shows the breathing indicator animation</string>
+    <string name="general_information">This App was developed for the purpose of presenting a breathing rhythm to a test-person. No sensors are used and no critical measurements performed. Therefore, all required patient related data needs to be acquired with external sensors. The ratio of inspiration and expiration is flexible in a range, which corresponds to the normal, fast inspiratory or fast expiratory spontaneous breathing of a test person.</string>
+    <string name="contentDescription_InformationIcon">Opens a UI-Element for more information on the App.</string>
+    <string name="breathing_rhythms">Breathing Rhythms</string>
+    <string name="warning"><![CDATA[It is possible to provide the test-participant with indicators for different breathing rhythms. Even if the participant decides on his breathing rhythm freely, a continuously high respiratory rate indicator could lead to hyperventilation with negative consequences. Likewise could a low respiratory rate indicator lead to hypoventilation.<br><b>Tests should only be made with consideration of the participants safety and security at all times.</b>]]></string>
+    <string name="credits">This App was designed and developed by Christian Bauer.</string>
+    <string name="credits_header">Credits</string>
+    <string name="warning_header">Warning</string>
+    <string name="use_case">One possible use case is the measurement of heart-rate-variability during differently paced breathing rhythms.</string>
+    <string name="use_case_header">Use case</string>
+    <string name="general_information_header">General Information</string>
+    <string name="information_header">Information</string>
+    <string name="close">Close</string>
+    <string name="breathing_rhythm">Breathing Rhythm</string>
+    <string name="start">Start</string>
+    <string name="phases">Phases</string>
+    <string name="cancel">Cancel</string>
+    <string name="mm_ss">mm:ss</string>
+    <string name="_00_30">00:30</string>
+    <string name="full_duration">Full Duration</string>
+    <string name="add_breathing_rhythm">Add breathing rhythm.</string>
+    <string name="phase_nr">Phase Nr</string>
+    <string name="duration">Duration</string>
+    <string name="respiratory_rate">Respiratory Rate</string>
+    <string name="_12">12</string>
+    <string name="_1_min">1/min</string>
+    <string name="name">Name</string>
+</resources>

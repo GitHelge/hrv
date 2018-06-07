@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/patternCardViewHeight"
+    android:layout_margin="4dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/selectableItemBackground">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutDuration"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="2dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewNameHeader">
+
+            <TextView
+                android:id="@+id/textViewDurationLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/duration"
+                android:textAlignment="center"
+                android:textAppearance="@style/SmallTextAppearance" />
+
+            <TextView
+                android:id="@+id/textViewDurationValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/_00_30"
+                android:textAlignment="center"
+                android:textAppearance="@style/Body2Appearance" />
+
+            <TextView
+                android:id="@+id/TextViewDurationUnit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/mm_ss"
+                android:textAlignment="center"
+                android:textAppearance="@style/SmallTextAppearance" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewNameHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:maxLines="2"
+            android:singleLine="false"
+            android:text="@string/name"
+            android:textAlignment="center"
+            android:textAppearance="@style/HeadlineTextAppearance"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayoutDuration"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>

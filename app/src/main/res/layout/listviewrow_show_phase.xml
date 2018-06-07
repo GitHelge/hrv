@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayoutShowPhase"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:layout_marginTop="8dp"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+        android:id="@+id/textViewPhaseHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="start|center_vertical"
+        android:text="@string/phase_nr"
+        android:textAlignment="textStart"
+        android:textAppearance="@style/SubheadAppearance"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayoutShowDuration"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayoutShowDuration" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutShowDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        app:layout_constraintStart_toEndOf="@+id/textViewPhaseHeader"
+        tools:layout_editor_absoluteY="38dp">
+
+        <TextView
+            android:id="@+id/textViewDurationLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/customTextViewWidth"
+            android:text="@string/duration"
+            android:textAlignment="center"
+            android:textAppearance="@style/SmallTextAppearance" />
+
+        <TextView
+            android:id="@+id/textViewDurationValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/_00_30"
+            android:textAlignment="center"
+            android:textAppearance="@style/Body2Appearance" />
+
+        <TextView
+            android:id="@+id/TextViewDurationUnit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/mm_ss"
+            android:textAlignment="center"
+            android:textAppearance="@style/SmallTextAppearance" />
+    </LinearLayout>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutShowRR"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayoutShowDuration"
+        app:layout_constraintStart_toEndOf="@+id/linearLayoutShowDuration"
+        app:layout_constraintTop_toTopOf="@+id/linearLayoutShowDuration"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/textViewRRLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/customTextViewWidth"
+            android:text="@string/respiratory_rate"
+            android:textAlignment="center"
+            android:textAppearance="@style/SmallTextAppearance" />
+
+        <TextView
+            android:id="@+id/textViewRRValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/_12"
+            android:textAlignment="center"
+            android:textAppearance="@style/Body2Appearance" />
+
+        <TextView
+            android:id="@+id/textViewRRUnit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/_1_min"
+            android:textAlignment="center"
+            android:textAppearance="@style/SmallTextAppearance" />
+    </LinearLayout>
+</LinearLayout>

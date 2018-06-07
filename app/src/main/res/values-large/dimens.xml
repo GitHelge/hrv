@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="customTextViewWidth">160dp</dimen>
+    <dimen name="thumbSize">30dp</dimen>
+    <dimen name="thumbOffset">10sp</dimen>
+    <dimen name="plusIconHeight">30dp</dimen>
+    <dimen name="phaseListHeight">250dp</dimen>
+    <dimen name="exclamationIconSize">30dp</dimen>
+    <dimen name="patternCardViewWidth">180dp</dimen>
+    <dimen name="patternCardViewHeight">160dp</dimen>
+    <dimen name="buttonLayoutHeight">70dp</dimen>
+    <dimen name="gradientCircleSize">280dp</dimen>
+    <bool name="forcePortrait">false</bool>
+</resources>

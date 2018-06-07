@@ -1,0 +1,50 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="SubheadAppearance" parent="TextAppearance.AppCompat.Subhead">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="SmallTextAppearance" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Body1Appearance" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="HintAppearance" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Body2Appearance" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="ButtonTextAppearance" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="HeadlineTextAppearance" parent="Base.TextAppearance.AppCompat.Headline">
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="DiscreteSeekBarNoDots" parent="Widget.AppCompat.SeekBar.Discrete">
+        <item name="tickMark">@null</item>
+        <item name="android:thumb">@drawable/custom_thumb</item>
+        <item name="android:thumbOffset">@dimen/thumbOffset</item>
+    </style>
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+</resources>

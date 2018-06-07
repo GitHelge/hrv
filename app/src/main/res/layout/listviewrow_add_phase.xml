@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutDuration"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAddPhaseRowHeader">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewDurationLabel"
+                android:textAppearance="@style/SmallTextAppearance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="@dimen/customTextViewWidth"
+                android:text="@string/duration"
+                android:textAlignment="center" />
+
+            <TextView
+                android:textAppearance="@style/Body2Appearance"
+                android:id="@+id/textViewDurationValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/_00_30"
+                android:textAlignment="center" />
+
+            <TextView
+                android:textAppearance="@style/SmallTextAppearance"
+                android:id="@+id/TextViewDurationUnit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/mm_ss"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <SeekBar
+            android:id="@+id/seekBarDuration"
+            style="@style/DiscreteSeekBarNoDots"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:max="5"
+            android:progress="0" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewAddPhaseRowHeader"
+        android:layout_width="@dimen/customTextViewWidth"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:text="@string/phase_nr"
+        android:textAlignment="center"
+        android:textAppearance="@style/SubheadAppearance"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutRR"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutDuration">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:textAppearance="@style/SmallTextAppearance"
+                android:id="@+id/textViewRRLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="@dimen/customTextViewWidth"
+                android:text="@string/respiratory_rate"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/textViewRRValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/_12"
+                android:textAlignment="center"
+                android:textAppearance="@style/Body2Appearance" />
+
+            <TextView
+                android:textAppearance="@style/SmallTextAppearance"
+                android:id="@+id/textViewRRUnit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/_1_min"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <SeekBar
+            android:id="@+id/seekBarRR"
+            style="@style/DiscreteSeekBarNoDots"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:max="15"
+            android:progress="8" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
