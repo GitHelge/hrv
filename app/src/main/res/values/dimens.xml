@@ -4,7 +4,7 @@
     <dimen name="thumbSize">25dp</dimen>
     <dimen name="plusIconHeight">25dp</dimen>
     <dimen name="phaseListHeight">220dp</dimen>
-    <dimen name="exclamationIconSize">20dp</dimen>
+    <dimen name="exclamationIconSize">25dp</dimen>
     <dimen name="patternCardViewWidth">160dp</dimen>
     <dimen name="patternCardViewHeight">150dp</dimen>
     <dimen name="buttonLayoutHeight">60dp</dimen>

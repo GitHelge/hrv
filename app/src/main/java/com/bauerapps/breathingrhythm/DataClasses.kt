@@ -58,6 +58,8 @@ data class BreathingPattern(val name: String, var patternPhaseList: ArrayList<Pa
     val fullDuration get() = patternPhaseList.map { it.phaseDuration }.sum()
 }
 
+data class Setting(val name: String, var isToggledOn: Boolean): Serializable
+
 data class PatternPhase(var phaseDuration: Int = 30, var respiratoryRate: Int = 12, var ie: IERatio = IERatio.N1): Serializable {
 
     /**

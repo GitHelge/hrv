@@ -7,12 +7,16 @@ import android.graphics.drawable.AnimationDrawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.os.Vibrator
 import android.support.v4.content.ContextCompat
 import android.view.View
 import android.view.WindowManager
 import com.bauerapps.breathingrhythm.R.drawable.gradient_animation_list
 import kotlinx.android.synthetic.main.activity_breathing_indicator.*
+import java.io.Serializable
 import java.util.*
+import kotlin.collections.AbstractList
+import kotlin.collections.ArrayList
 import kotlin.concurrent.schedule
 
 
@@ -21,9 +25,11 @@ class BreathingIndicatorActivity : AppCompatActivity(), AnimationDrawableInterfa
     companion object {
 
         private const val BREATHING_PATTERN = "bp"
-        fun intent(context: Context, bp: BreathingPattern): Intent {
+        private const val SETTING_LIST = "settingList"
+        fun intent(context: Context, bp: BreathingPattern, settingList: ArrayList<Setting>?): Intent {
             val intent = Intent(context, BreathingIndicatorActivity::class.java)
             intent.putExtra(BREATHING_PATTERN, bp)
+            intent.putExtra(SETTING_LIST, settingList)
             return intent
         }
     }
@@ -50,6 +56,7 @@ class BreathingIndicatorActivity : AppCompatActivity(), AnimationDrawableInterfa
      * It is marked as an optional, because the deserialization might fail.
      * */
     private var bp: BreathingPattern? = null
+    private var settingList: ArrayList<Setting>? = null
 
     /**
      * This property
@@ -72,6 +79,7 @@ class BreathingIndicatorActivity : AppCompatActivity(), AnimationDrawableInterfa
                 WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         bp = intent.getSerializableExtra(BREATHING_PATTERN) as? BreathingPattern
+        settingList = intent.getSerializableExtra(SETTING_LIST) as? ArrayList<Setting>
 
         prepareBreathingTest()
     }
@@ -84,10 +92,10 @@ class BreathingIndicatorActivity : AppCompatActivity(), AnimationDrawableInterfa
         var counter = 5
 
         // This timer fires at 0ms and repeatedly after 1000ms each.
-        preparationTimer.schedule(0,1000, {
+        preparationTimer.schedule(0,1000) {
             updatePrep(counter)
             counter--
-        })
+        }
     }
 
     private fun updatePrep(counter: Int) {
@@ -117,7 +125,7 @@ class BreathingIndicatorActivity : AppCompatActivity(), AnimationDrawableInterfa
     private fun startBreathingAnimation() {
 
         animationDrawable = MyAnimationDrawable(ContextCompat.getDrawable(this,
-                gradient_animation_list) as AnimationDrawable)
+                gradient_animation_list) as AnimationDrawable, settingList, this)
         animationDrawable?.animationDrawableInterface = this
 
         runOnUiThread { imageViewBreathingIndicator.background = animationDrawable }

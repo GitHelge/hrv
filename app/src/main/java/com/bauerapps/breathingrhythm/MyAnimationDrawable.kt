@@ -1,5 +1,6 @@
 package com.bauerapps.breathingrhythm
 
+import android.content.Context
 import android.os.SystemClock
 import android.graphics.drawable.AnimationDrawable
 import android.media.AudioAttributes
@@ -9,8 +10,11 @@ import android.media.AudioFormat.CHANNEL_OUT_STEREO
 import android.media.AudioManager
 import android.media.AudioTrack
 import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.support.annotation.RequiresApi
 import android.util.Log
+import java.util.*
 import kotlin.concurrent.thread
 import kotlin.math.exp
 import kotlin.math.max
@@ -24,11 +28,14 @@ interface AnimationDrawableInterface {
 /**
  * Created by Christian on 30.03.18.
  */
-class MyAnimationDrawable(animationDrawable: AnimationDrawable) : AnimationDrawable() {
+class MyAnimationDrawable(animationDrawable: AnimationDrawable, settingList: ArrayList<Setting>?, context: Context) : AnimationDrawable() {
 
     companion object {
         const val INSP_FRAME = 0
         const val EXP_FRAME = 1
+
+        private const val AUDIO_SETTING = "audioSetting"
+        private const val VIBRATION_SETTING = "vibrationSetting"
     }
 
     var animationDrawableInterface: AnimationDrawableInterface? = null
@@ -40,6 +47,13 @@ class MyAnimationDrawable(animationDrawable: AnimationDrawable) : AnimationDrawa
     private var isInitialFrame: Boolean
 
     private var audioTrack: AudioTrack? = null
+
+    private var enableAudio: Boolean
+    private var enableVibration: Boolean
+
+    private var context: Context
+
+    private var vibrator: Vibrator? = null
 
     init {
         // Initialisation with Inspiration
@@ -53,6 +67,15 @@ class MyAnimationDrawable(animationDrawable: AnimationDrawable) : AnimationDrawa
         /* Add each frame to our animation drawable */
         for (i in 0 until animationDrawable.numberOfFrames) {
             this.addFrame(animationDrawable.getFrame(i), animationDrawable.getDuration(i))
+        }
+
+        enableAudio = settingList?.find { it.name == AUDIO_SETTING }?.isToggledOn ?: true
+        enableVibration = settingList?.find { it.name == VIBRATION_SETTING }?.isToggledOn ?: false
+
+        this.context = context
+
+        if (enableVibration) {
+            this.vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         }
     }
 
@@ -79,9 +102,15 @@ class MyAnimationDrawable(animationDrawable: AnimationDrawable) : AnimationDrawa
         /* These methods are called in the BreathingIndicatorActivity to indicate
         the start of inspiration or expiration */
 
-        audioTrack.notNull { it.release() }
-        audioTrack = generateTone(currentFrame, duration)
-        audioTrack?.play()
+        if (enableAudio) {
+            audioTrack.notNull { it.release() }
+            audioTrack = generateTone(currentFrame, duration)
+            audioTrack?.play()
+        }
+
+        if (enableVibration) {
+            generateVibration(currentFrame, duration)
+        }
 
         if (currentFrame == EXP_FRAME) {
             animationDrawableInterface?.expirationStarted()
@@ -188,6 +217,25 @@ class MyAnimationDrawable(animationDrawable: AnimationDrawable) : AnimationDrawa
         }
 
         return samples
+    }
+
+    private fun generateVibration(frame: Int, durationMs: Int) {
+
+        if (frame == EXP_FRAME) return
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            // void vibrate (VibrationEffect vibe)
+            vibrator?.vibrate(
+                    VibrationEffect.createOneShot(
+                            durationMs.toLong(),
+                            // The default vibration strength of the device.
+                            VibrationEffect.DEFAULT_AMPLITUDE
+                    )
+            )
+        }else{
+            // This method was deprecated in API level 26
+            vibrator?.vibrate(durationMs.toLong())
+        }
     }
 
     private fun generateTone(frame: Int, durationMs: Int): AudioTrack? {

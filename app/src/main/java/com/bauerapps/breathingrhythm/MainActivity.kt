@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.content.pm.ActivityInfo
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
@@ -18,9 +17,15 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.alertdialog_add_pattern.view.*
 import kotlinx.android.synthetic.main.alertdialog_breathingpattern.view.*
 import kotlinx.android.synthetic.main.alertdialog_information.view.*
+import kotlinx.android.synthetic.main.alertdialog_settings.view.*
 import java.io.File
 
 class MainActivity : AppCompatActivity(), BPClickedInterface, PatternPhaseInterface {
+
+    companion object {
+        private const val AUDIO_SETTING = "audioSetting"
+        private const val VIBRATION_SETTING = "vibrationSetting"
+    }
 
     private lateinit var bpRecyclerAdapter: BPRecyclerAdapter
     private lateinit var bpGridLayoutManager: GridLayoutManager
@@ -29,6 +34,7 @@ class MainActivity : AppCompatActivity(), BPClickedInterface, PatternPhaseInterf
     private var bpAlertViewStart: View? = null
     //private var patternPhaseAdapter: PatternPhaseAdapter? = null
     private var addPatternPhaseAdapter: AddPatternPhaseAdapter? = null
+    private var settingList: ArrayList<Setting>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,17 +50,56 @@ class MainActivity : AppCompatActivity(), BPClickedInterface, PatternPhaseInterf
         recyclerViewBreathingPattern.layoutManager = bpGridLayoutManager
 
         // 2. Set RecyclerAdapter
-        var bpList = readSavedBPList()
-        if (bpList == null) {
-            bpList = initBPList()
-        }
+        val bpList = readSavedBPList() ?: initBPList()
+
         bpRecyclerAdapter = BPRecyclerAdapter(bpList)
         bpRecyclerAdapter.bpClickedInterface = this
         recyclerViewBreathingPattern.adapter = bpRecyclerAdapter
 
-        // Receive clicks on the info Button.
-        frameLayoutInformation.setOnClickListener { startInformationDialog() }
+        settingList = readSavedSettings() ?: initSettingList()
 
+        frameLayoutInformation1.setOnClickListener { startConfigDialog() }
+
+        // Receive clicks on the info Button.
+        frameLayoutInformation2.setOnClickListener { startInformationDialog() }
+
+    }
+
+    private fun startConfigDialog() {
+        val bpAlertBuilder = AlertDialog.Builder(this/*, R.style.DialogTheme*/)
+        val bpAlertView =  LayoutInflater.from(this)
+                .inflate(R.layout.alertdialog_settings, null)
+
+        val settingList = readSavedSettings() ?: initSettingList()
+
+        // First position is Audio Settings, second is Vibration, if anything goes amiss,
+        // the "Elvis" Operator (?:) comes into play
+        bpAlertView.switchToggleAudio.isChecked = settingList.find {
+            it.name == AUDIO_SETTING
+        }?.isToggledOn ?: true
+        bpAlertView.switchToggleVibration.isChecked = settingList.find {
+            it.name == VIBRATION_SETTING
+        }?.isToggledOn ?: false
+
+        bpAlertView.linearLayoutInfoClose1.setOnClickListener { bpAlertDialog?.dismiss() }
+
+        bpAlertView.switchToggleAudio.setOnCheckedChangeListener { _, isToggledOn ->
+            settingList.find { it.name == AUDIO_SETTING }?.isToggledOn = isToggledOn
+            writeSavedSettings(settingList)
+        }
+
+        bpAlertView.switchToggleVibration.setOnCheckedChangeListener { _, isToggledOn ->
+            settingList.find { it.name == VIBRATION_SETTING }?.isToggledOn = isToggledOn
+            writeSavedSettings(settingList)
+        }
+
+        // Save the settings globally
+        this.settingList = settingList
+
+        bpAlertBuilder.setView(bpAlertView)
+
+        bpAlertDialog = bpAlertBuilder.create()
+        bpAlertDialog?.show()
     }
 
     private fun startInformationDialog() {
@@ -77,6 +122,15 @@ class MainActivity : AppCompatActivity(), BPClickedInterface, PatternPhaseInterf
         writeSavedBPList(bpRecyclerAdapter.bpList)
 
         super.onPause()
+    }
+
+    private fun initSettingList(): ArrayList<Setting> {
+        val settingList = ArrayList<Setting>()
+
+        settingList.add(Setting(AUDIO_SETTING, true))
+        settingList.add(Setting(VIBRATION_SETTING, false))
+
+        return settingList
     }
 
     /**
@@ -147,8 +201,6 @@ class MainActivity : AppCompatActivity(), BPClickedInterface, PatternPhaseInterf
         }
     }
 
-
-
     override fun bpItemClicked(bp: BreathingPattern, position: Int) {
 
         val bpAlertBuilder = AlertDialog.Builder(this/*, R.style.DialogTheme*/)
@@ -175,10 +227,10 @@ class MainActivity : AppCompatActivity(), BPClickedInterface, PatternPhaseInterf
         bpAlertViewStart?.linearLayoutBPCancel?.setOnClickListener {
             bpAlertDialog?.dismiss()
         }
-        bpAlertViewStart?.linearLayoutBPStart?.setOnClickListener {
+        bpAlertViewStart?.linearLayoutBPStart?.setOnClickListener { _ ->
             bpAlertDialog?.dismiss()
             bp.patternPhaseList.forEach { it.ie = IERatio.fromString(ieRatioSpinnerAdapter.getItem(bpAlertViewStart?.spinnerIERatio?.selectedItemPosition!!)) }
-            startActivity(BreathingIndicatorActivity.intent(this, bp))
+            startActivity(BreathingIndicatorActivity.intent(this, bp, settingList))
         }
 
         bpAlertBuilder.setView(bpAlertViewStart)
@@ -209,6 +261,29 @@ class MainActivity : AppCompatActivity(), BPClickedInterface, PatternPhaseInterf
         val gson = Gson().toJson(bpList)
         val file = File(filesDir, "bpList")
         file.writeText(gson)
+    }
+
+    /**
+     * This Method writes the currently known ArrayList of Settings
+     * to the internal Files-Directory.
+     */
+    private fun writeSavedSettings(settingList: ArrayList<Setting>) {
+        val gson = Gson().toJson(settingList)
+        val file = File(filesDir, "settingList")
+        file.writeText(gson)
+    }
+
+    /**
+     * This Method reads an Json-String from the internal Files-Directory
+     * and returns an ArrayList of Settings or null is none is found.
+     * */
+    private fun readSavedSettings(): ArrayList<Setting>? {
+        val file = File(filesDir, "settingList")
+        if (file.exists()) {
+            return Gson().fromJson(file.readText(),
+                    object : TypeToken<ArrayList<Setting>>() {}.type)
+        }
+        return null
     }
 
     /**

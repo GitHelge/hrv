@@ -17,6 +17,7 @@
     <string name="use_case_header">Use case</string>
     <string name="general_information_header">General Information</string>
     <string name="information_header">Information</string>
+    <string name="settings_header">Settings</string>
     <string name="close">Close</string>
     <string name="breathing_rhythm">Breathing Rhythm</string>
     <string name="start">Start</string>
