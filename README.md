@@ -1,4 +1,7 @@
-# HRV Breathing Pattern - App Repository
+<h2 align="center"><a href="https://play.google.com/store/apps/details?id=com.bauerapps.breathpatternmeasure"><img src="https://imgur.com/sCt4NdG" title="HRVIcon" width="250" alt="HRVIcon"></a><br>HRV Breathing Pattern</h2>
+
+<h1 align="center"><strong>HRV Breathing Pattern - App Repository</strong></h1>
+
 This repository contains the source-code for the [HRV Breathing Pattern](https://play.google.com/store/apps/details?id=com.bauerapps.breathpatternmeasure)-App in the Google PlayStore. 
 
 For the purpose of presenting the test-candidates with a paced-breathing indicator, an *Android-App* was used. Because of the specific requirement for the Application, non of the preexisting *Android*- or *iOS*-Apps were suitable.
