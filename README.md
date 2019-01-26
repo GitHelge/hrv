@@ -1,4 +1,4 @@
-<h2 align="center"><a href="https://play.google.com/store/apps/details?id=com.bauerapps.breathpatternmeasure"><img src="https://imgur.com/a/MnDNGOs" title="HRVIcon" width="250" alt="HRVIcon"></a><br>HRV Breathing Pattern</h2>
+<h2 align="center"><a href="https://play.google.com/store/apps/details?id=com.bauerapps.breathpatternmeasure"><img src="HRVraw.png" title="HRVIcon" width="250" alt="HRVIcon"></a><br>HRV Breathing Pattern</h2>
 
 <h1 align="center"><strong>HRV Breathing Pattern - App Repository</strong></h1>
 
